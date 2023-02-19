@@ -1,0 +1,23 @@
+{% extends 'products/base.html'%}
+
+{% block body%}
+<a onclick="history.back()">
+    <i class="fa-solid fa-arrow-left fa-2x m-2 "></i>
+  </a>
+<form action="" method="POST" enctype="multipart/form-data" style="height:765px ;">
+    {% csrf_token%}
+    {{form.media}}
+<div class="container">
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4">
+            {{form.as_p}}
+            <input type="submit" value="Add" class="form-control mb-5 btn-primary">
+        </div>
+        <div class="col-4"></div>
+    </div>
+    
+</div>
+
+</form>
+{% endblock%}

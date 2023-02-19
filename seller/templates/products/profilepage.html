@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+{% load static%}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/profilepage.css'%}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <title>Document</title>
+</head>
+<body >
+  
+
+<div class="container-fluid  bg-dark  mb-5">
+  <a onclick="history.back()">
+    <i class="fa-solid fa-arrow-left fa-2x m-2 text-white"></i>
+  </a>
+  
+  <div class="container">
+    <div class="row bg-dark text-white">
+      <div class="col-md-3 border-right">
+        {%if profile.profile_pic%}
+          <div class="d-flex flex-column align-items-center text-center  mt-4">
+            <img class="rounded-circle " width="150px" src="{{profile.profile_pic.url}}">
+          </div>
+          {% else%}
+          <div class="d-flex flex-column align-items-center text-center  mt-4">
+            <img class="rounded-circle " width="190px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+          </div>
+        {% endif%}
+      </div>
+      <div class="col-md-5 border-right">
+
+          <div class="p-3 py-5">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h3 class="text-right">Profile</h3>
+          </div>
+             
+              <div class="row mt-1">
+                <div class="col-4  ">
+                  <h5>Name</h5>
+                  <h5>Bio</h5>
+                  <h5>Mobile Number</h5>
+                </div>
+                <div class="col-8 ">
+                  <h5>: {{profile.user |capfirst}}</h5>
+                  <h5>: {{profile.bio |capfirst}}</h5>
+                  <h5>: {{profile.phone_no}}</h5>
+                </div>
+                
+              </div>
+              
+
+          </div>
+      </div>
+     
+  </div>
+  
+</div>
+</div>
+
+  </div>
+  
+  
+</div>
+    
+<section style="height:640px ;" class="bg-dark">
+    
+  <div class="container-fluid bg-dark">
+    <div class="container">
+      
+        
+  <div class="row ">
+    
+      
+    <div class="col bg-dark rounded">
+     
+        {% for product in products%}
+        
+            <div class="card mb-3 mt-3 " >
+                <div class="row g-0">
+                
+                <div class="col-md-2" style="width: 230px;">
+                    {% if product.image_1%}
+                        <img src="{{product.image_1.url}}" class="img-fluid rounded-start" alt="..." style="height: 200px;width: 100%;">
+               
+                    {% else%}
+                    <img src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" class="img-fluid rounded-start" alt="...">
+                    {% endif%}
+                 </div>
+                <div class="col-md-9">
+                    <div class="row">
+                        <div class="col-3 ms-2">
+                            <div class="m-2">
+                                
+                                <h3 class="card-title">{{product.name |capfirst}}</h3>
+                                <h4 class="card-title"> status:{{product.status |capfirst}}</h4>
+                                <p >Posted Date:{{product.created | date:" d -m -y"}}</p>
+                            
+                            </div>
+                            
+                            
+                        </div>
+                       
+                        <div class="col-5 ">
+                            <div class="m-5">
+                                <a href="{% url 'product-detail' product.id%}" style="text-decoration: none;color: black;">
+                                    <button type="button" class="btn btn-success" style="height: 70px;width: 200px;">View </button>
+                                </a>
+                            </div>                               
+                        </div>
+                    </div>                       
+                </div>
+                </div>
+            </div>
+          
+        {% endfor%}
+        
+    
+        
+    </div>
+    
+</div>
+
+    </div>
+    
+  </div>
+  </section> 
+
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+

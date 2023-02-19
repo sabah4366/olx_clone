@@ -1,0 +1,168 @@
+{% extends 'products/base.html'%}
+
+{% block body%}
+ <!-- product images  -->
+ <style>
+	.like-container{
+		width: 100px;
+		height: auto;
+		padding: 10px 10px 10px 10px;
+		display: felx;
+		align-items: center;
+		justify-content: space-between;
+		flex-direction: column;
+		margin-bottom: 10px;
+	}
+
+	.like-container button{
+		background: none;
+		border: none;
+	}
+	a :hover{
+		color: black;
+	}
+ </style>
+
+
+
+
+        
+
+        <section class="py-5">
+            <div class="container-fluid ">
+				<a style="color: blue;" onclick="history.back()">
+					
+					<i class="bi bi-arrow-left fa-3x"></i>
+				</a>
+				
+				
+				
+                <div class="row gx-4 gx-lg-5 align-items-center">
+					
+					
+				
+					
+					<div class="col-6">
+						{% if product.image_1%}
+						<img src="{{product.image_1.url}}" class="col-md-6"  style="height: 550px;width: 750px;"   alt="">`
+                    	{% else%}
+                    		<div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." /></div>
+                    	{% endif%}
+					</div>
+					
+
+
+					<div class="col-6">
+						
+						<div class="col-md-6">
+							<span>
+								<div class="row">
+									<div class="col-6 mt-3">
+										<strong class="display-5 fw-bolder ">{{product.name}}</strong>
+									</div>
+									<div class="col-6">
+										
+									</div>
+								</div>
+								<!-- product like  start -->
+								<strong class="like-container" >
+												
+									<form action="" method="POST">
+										{%  csrf_token%}
+										{% if msg%}
+											<button>
+												<i class="bi bi-heart-fill fa-2x"></i>			
+											</button>
+										{% else%}
+											<button class="">
+												<i class="bi bi-heart  fa-2x"> </i>																			
+											</button>
+										{% endif%}
+
+									</form>
+									<span class="num-of-likes">{{product.likes.count}} Likes</span>
+
+									
+										
+								</strong>
+							 <!-- product like end  -->
+							</span>
+						<div class="small mb-1 fw-bold mt-2"><h5>Details</h5> </div>
+						<div class="small mb-1">Brand <span class="ms-5"> {{product.brand}} </span></div>
+						<hr>
+						<div class="small mb-1 fw-bold"><h5>Description</h5> </div>
+						<div>{{product.description}}</div>
+						<hr>
+						<div class="small mb-1">SKU: BST-{{product.id}}</div>
+						   
+							<div class="fs-5 mb-5">
+								<strong>Price:</strong>
+								<span>${{product.price}}</span>
+							</div>
+							<div class="form-control border border-3 border-dark rounded mb-3">	
+								<h6>Posted By</h6>		
+								<hr>
+								{% if product.owner.profile%}
+								<a href="{% url 'show-profile' product.owner.profile.id%}" style="text-decoration: none;">{{product.owner |capfirst}}</a>
+								{%else%}
+								<strong ></strong><span> <a class="text-dark" href=""> {{product.owner.username }}</a></span>
+								{%endif%}
+							</div>
+							
+							<strong>Condition:</strong><span>{{product.condition}}</span>
+							<div>
+								<strong>Posted in:</strong><span> {{product.created |date:" d M Y" }}</span>
+							</div>
+							<div>
+								<strong>Location:</strong><span>{{product.state}},{{product.city}}</span>
+							
+							</div>
+							<div>
+								<strong>Contact:</strong><span> {{product.owner.profile.phone_no}}</span>
+							</div>
+							
+							{% if request.user == product.owner%}
+							<button  class="btn btn-dark form-control mt-3">
+								<a style="text-decoration:none ;color: white;" href="{% url 'create-product-image' product.id%}">Add Photo</a>
+								</button>
+							{% endif%}
+							
+							{% if request.user != product.owner%}
+							<button class="btn btn-primary form-control mt-5 fw-bold">
+								<a href="{% url 'notification' product.id%}"class="text-white" style="text-decoration: none;" > Make An Offer</a>
+							</button>
+							{% endif%}
+							<!-- make offer start -->
+							<!-- Button trigger modal -->
+										
+																		
+
+							<!-- make offer end -->
+							
+							<p class="lead"></p>
+							<p class="lead"></p>
+						
+					</div>
+					
+					
+                	</div>
+					<!-- carousel satrt here -->
+					<div class="carousel-inner">
+						{% for pro  in productimages %}
+							<div class="item {% if forloop.counter == 1 %}active{% endif %}" id="slide{{ forloop.counter }}">
+								<img src="{{pro.image.url}}" class="col-md-6 m-2"  style="height: 450px;width: 750px;"   alt="">`
+								
+							</div>
+						{% endfor %}
+					</div>
+					
+					
+					<!-- carousel emd here -->
+                </div>
+            </div>
+			
+        </section>
+
+
+
+{% endblock %}

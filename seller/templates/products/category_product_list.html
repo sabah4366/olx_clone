@@ -1,0 +1,122 @@
+{% extends 'products/base.html'%}
+
+{% block body%}
+<style>
+    .pagination {
+      display: inline-block;
+    }
+    
+    .pagination a {
+      color: black;
+      float: left;
+      padding: 8px 16px;
+      text-decoration: none;
+    }
+</style>
+
+  
+
+{% if messages %}
+
+<div class="row">
+    {% for msg in messages%}
+    <div class="col-12 text-center">
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>{{msg}}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+<div class="container-fluid">
+    <div class="row ">
+        <div class="col-12  "> 
+            <div class="col-2 bg-light fw-bold ms-5 ">
+                <strong class=" fw-bold">
+                    <ul class="list-group">
+                        <li class="list-group-item"><a  href="{% url 'home' %}" style="text-decoration: none;color: black;">All Categories</a></li>
+                        {% for category in categories%}
+                        <li class="list-group-item"><a href="#" style="text-decoration: none;color: rgb(6, 137, 177);"> {{category}}</a></li>
+                        {% endfor%}
+                      </ul>
+                     
+                    
+                </strong>
+            </div>
+        </div>
+    </div>
+      
+</div>
+<section class="py-5">
+    <div class="container- px-4 px-lg-5 mt-5">
+        <div class="row  gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+           
+            {% for product in products%}
+                <div class="col-4 mb-5 ">
+                    <a href="{% url 'product-detail' product.id%}" style="text-decoration: none;color: black;" >  
+                        <div class="card h-100 ">
+
+                            <!-- like font start -->
+                                <!-- <i class="fa-regular fa-heart"></i>
+                                <i class="fa-solid fa-heart"></i> -->
+                            <!-- like font endf -->
+                            
+                            <!-- Product image-->
+                            {% if product.image_1%}
+                            <img class="card-img-top " src="{{product.image_1.url}}" alt="..."  style="height:300px ;"/>
+                            {% else%}
+                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                            {%endif%}        
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div >
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder">₹ {{product.price}}</h5>                
+                                    <!-- Product price-->
+                                    {% if product.owner.profile%}
+                                    <strong >Owner:</strong><span></span><a class="text-dark" href="{% url 'show-profile' product.owner.profile.id%}"> {{product.owner.username }}</a> </span>
+                                    {%else%}
+                                    <strong >Owner: </strong><span> <a class="text-dark" href=""> {{product.owner.username }}</a></span>
+                                    {%endif%}
+                                    <div>
+                                    
+                                    <strong>Phone No:</strong><span>{{product.owner.profile.phone_no}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            <span class="ps-4 pb-2"> {{product.city |capfirst}},{{product.state | capfirst}}</span>
+                        </div>           
+                    </a>
+                </div>
+                
+            {% endfor%}
+            
+        </div>
+        {% if products.has_other_pages%}
+        <div class="pagination pagination-sm">
+            {% if products.has_previous%}
+                <a href="?page={{ products.previous_page_number }}">prev</a>
+            {% else%}
+                <li class="disabled"></li>
+            {% endif%}
+            {% for pages in products.paginator.page_range%}
+                {% if products.number == pages%}
+                    <a href="#">{{pages}}</a>
+                {% else %}
+                    <a href="?page={{pages}}">{{pages}}</a>
+                {% endif%}
+            {% endfor%}
+            {% if products.has_next%}
+                <a href="?page={{ products.next_page_number }}">next</a>
+            {% else%}
+                <li class="disabled"></li>
+            {% endif%}
+        </div>
+        {% endif%}
+    </div>
+    
+</section> 
+
+{% endblock%}

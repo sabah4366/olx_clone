@@ -1,0 +1,13 @@
+body{
+  background-color: rgb(3, 3, 3);
+}
+
+.btn-btn{
+  width: 417px;
+  height: 40px;
+  border-radius: 4px;
+}
+.main-col{
+  height: 665px;
+  
+}

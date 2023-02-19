@@ -1,0 +1,57 @@
+{% extends 'products/base.html'%}
+{% block body%}
+{% load static%}
+<link rel="stylesheet" href="{%static 'css/profile.css'%}">
+<a onclick="history.back()">
+  <i class="bi bi-arrow-left fa-3x text-white"></i>
+</a>
+<form action="" method="post" enctype="multipart/form-data" >
+{%csrf_token%}
+{{form.media}}
+<div class="container rounded bg-dark" >
+  <h1 class="text-center  text-white fw-bold">User Profile</h1>
+
+</div>
+<div class="container bg-dark rounded mb-5">
+  
+  <div class="row  ">
+    <div class="col-4"></div>
+    <div class="col-4 main-col   ">
+      <div class="my-3 text-white fw-bold" >
+        <label for="id_profile_pic ">Profile Picture</label>
+      <input class="form-control" type="file" name="profile_pic" accept="image/*" id="id_profile_pic">
+      </div>
+      <div class="my-3 text-white fw-bold" >
+        <label for="id_bio">Bio</label>
+        <input class="form-control" type="text" name="bio" maxlength="200" required="" id="id_bio">
+
+      </div>
+     <div class="my-3 text-white fw-bold" >
+      <label for="id_phone_no">Phone No</label>
+      <input class="form-control" type="number" name="phone_no" required="" id="id_phone_no">
+
+     </div>
+      <div class="my-3 " >
+        <input type="submit" class="btn form-control " name="" id="" value="Save" style="background-color: #345ceb;">
+      </div>
+      
+
+
+    </div>
+    </div>
+</div>
+</form>
+
+{% endblock%}
+
+
+
+
+
+
+
+
+
+
+
+

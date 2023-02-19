@@ -1,0 +1,103 @@
+{% extends 'products/base.html'%}
+
+{% block body%}
+<a onclick="history.back()">
+    <i class="bi bi-arrow-left fa-3x "></i>
+</a>
+    
+<section class="py-5">
+    
+    <div class="container">
+        
+        <h2 class="mb-3">My Posts</h2>
+    <div class="row  heading mb-3 bg-dark rounded" >
+        
+        <div class="col-4"><h4 class="text-white m-2">Product</h4></div>
+        <div class="col-8"><h4 class="text-white m-2">Price</h4></div>
+    </div>
+    <div class="row ">
+        
+        <div class="col bg-dark rounded">
+            {% for product in products%}
+            
+                <div class="card mb-3 mt-3 " >
+                    <div class="row g-0">
+                    
+                    <div class="col-md-2" style="width: 230px;">
+                        {% if product.image_1%}
+                            <img src="{{product.image_1.url}}" class="img-fluid rounded-start" alt="..." style="height: 200px;width: 100%;">
+                   
+                        {% else%}
+                        <img src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" class="img-fluid rounded-start" alt="...">
+                        {% endif%}
+                     </div>
+                    <div class="col-md-9">
+                        <div class="row">
+                            <div class="col-3 ms-2">
+                                <div class="m-2">
+                                    
+                                    <h6 class="card-title">{{product.name |capfirst}}</h6>
+                                    <h6 class="card-title"> status:{{product.status |capfirst}}</h6>
+                                    <p >Posted Date:{{product.created | date:" d -m -y"}}</p>
+                                
+                                </div>
+                                
+                                
+                            </div>
+                            <div class="col-2 ">
+                                <div class="mt-2">
+                                    <h6 class="card-text">{{product.price}} INR</h6>
+                                    
+                                    
+                                </div>                               
+                            </div>
+                            <div class="col-5 ">
+                                <div class="mt-2">
+                                    {% if request.user == product.owner%}
+                                    <a href="{% url 'product-detail' product.id%}" style="text-decoration: none;color: black;">
+                                        <button type="button" class="btn btn-success">View </button>
+                                    </a>
+                                    <a style="text-decoration:none ;color: white;" href="{% url 'product-update' product.id%}">
+                                        <button type="button" class="btn btn-primary ms-2">Edit </button>
+                                    </a>
+                                    <a style="text-decoration:none ;color: white;" href="{% url 'remove-product' product.id%}">
+                                        <button type="button" class="btn btn-danger ms-2">Delete</button>
+                                    </a>
+                                    {% if product.status == "sold"%}
+                                    <a style="text-decoration:none ;color: white; " >
+                                    <button type="button" class="btn btn-warning ms-2" style="width:115px ;">Sold</button>
+                                    </a>
+                                    {% else%}
+                                    <a style="text-decoration:none ;color: white;" href="{% url 'product-sold' product.id%}">
+                                        <button type="button" class="btn btn-warning ms-2">Mark as Sold</button>
+                                    </a>
+                                    {% endif%}
+                                    
+                                    {% endif %}
+                                </div>                               
+                            </div>
+                        </div>                       
+                    </div>
+                    </div>
+                </div>
+            
+            {% endfor%}
+        
+            
+        </div>
+        
+    </div>
+    </div>
+    </section> 
+
+
+
+
+
+{% endblock%}
+
+
+
+
+
+							
