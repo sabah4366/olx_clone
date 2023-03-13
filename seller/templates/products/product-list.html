@@ -1,6 +1,7 @@
 {% extends 'products/base.html'%}
 
 {% block body%}
+{% load static%}
 <style>
     .pagination {
       display: inline-block;
@@ -64,7 +65,7 @@
 <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-            
+            {% if products%}
             {% for product in products%}
 
 
@@ -137,31 +138,53 @@
                 </div>
                 {% endif%}
             {% endfor%}
+                 </div>
+                    {% if products.has_other_pages%}
+                        <div class="pagination pagination-sm">
+                            {% if products.has_previous%}
+                                <a href="?page={{ products.previous_page_number }}">prev</a>
+                            {% else%}
+                                <li class="disabled"></li>
+                            {% endif%}
+                            {% for pages in products.paginator.page_range%}
+                                {% if products.number == pages%}
+                                    <a href="#">{{pages}}</a>
+                                {% else %}
+                                    <a href="?page={{pages}}">{{pages}}</a>
+                                {% endif%}
+                            {% endfor%}
+                            {% if products.has_next%}
+                                <a href="?page={{ products.next_page_number }}">next</a>
+                            {% else%}
+                                <li class="disabled"></li>
+                            {% endif%}
+                        </div>
+                    {% endif%}
+                </div>
+            {% else %}
             
-        </div>
-        {% if products.has_other_pages%}
-        <div class="pagination pagination-sm">
-            {% if products.has_previous%}
-                <a href="?page={{ products.previous_page_number }}">prev</a>
-            {% else%}
-                <li class="disabled"></li>
-            {% endif%}
-            {% for pages in products.paginator.page_range%}
-                {% if products.number == pages%}
-                    <a href="#">{{pages}}</a>
-                {% else %}
-                    <a href="?page={{pages}}">{{pages}}</a>
-                {% endif%}
-            {% endfor%}
-            {% if products.has_next%}
-                <a href="?page={{ products.next_page_number }}">next</a>
-            {% else%}
-                <li class="disabled"></li>
-            {% endif%}
-        </div>
-        {% endif%}
-    </div>
+            
+       
     
 </section> 
+                <div class="row">
+                    <div class="col-3"></div>
+                    <div class="col m-5"><h4 class="ms-5">Oops... we didn't find anything that matches this search :(<br>
+                    </h4>
+                    <span class="ms-5">Try search  for something more general, change the filters or check for spelling mistakes</span>
+                    <div class="row">
+                        <div class="col-3" ></div>
+                        <div class="col-3 mt-4" >
+                            <img class="ms-5 " src="{% static 'images/noResults.webp'%}" alt="">
+
+                        </div>
+                        <div class="col-3" ></div>
+                    </div>
+                    </div>
+
+                    <div class="col-3"></div>
+                </div>
+
+            {% endif %}
 
 {% endblock%}

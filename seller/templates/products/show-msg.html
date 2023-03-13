@@ -1,20 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <title>Document</title>
-</head>
-<style>
-</style>
-<body style="background-color: black;">
+{% extends 'products/base.html'%}
+
+{% block body%}
+{% load static %}
+
+<body>
     <a  onclick="history.back()">
         <i class="fa-sharp fa-solid fa-arrow-left text-white fa-2x m-3"></i>
     </a>
-    <h1 class="text-center text-white fw-bold">Inquiries</h1>
+    <h1 class="text-center text-dark fw-bold">Inquiries</h1>
 
     {% for notification in notifications%}
     {% if notification.product.owner == request.user%}
@@ -25,7 +18,7 @@
             <div class="col-2"></div>
             <div class="col-8">
                 <div class="card bg-dark mb-3">
-                    <div class="card-header bg-primary text-white">
+                    <div class="card-header bg-white text-dark">
                         <div class="row">
                             <div class="col-1">
                                 <i class="fa-solid fa-user fa-4x "></i>
@@ -37,7 +30,7 @@
                         </div>
                       
                     </div>
-                    <div class="card-body  bg-danger text-white">
+                    <div class="card-body  bg-white text-dark">
                         <strong >Product : </strong><strong> {{notification.product |capfirst}}</strong>
                         <div class="mt-4 ">
                             <strong>Message:</strong><span class="card-title mt-4"> {{notification.description |capfirst}}</span>
@@ -45,7 +38,7 @@
                     
                       
                     </div>
-                    <div class="card-footer bg-danger text-white">
+                    <div class="card-footer bg-dark text-white">
                       {{notification.created | date:"D M Y"}} 
                     </div>
                   </div>
@@ -63,6 +56,6 @@
     
     
 </body>
-</html>
 
 
+{% endblock%}
