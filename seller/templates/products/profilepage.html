@@ -24,10 +24,22 @@
         {% endif%}
       </div>
       <div class="col-md-5 border-right">
-
+        
           <div class="p-3 py-5">
+            <div class="row">
+              <div class="col-4">
+                <h5>Following</h5>
+                <h5  class="ms-5" style="margin: 0px;">{{following}}</h5>
+              </div>
+              <div class="col-3">
+                <h5 style="margin: 0px;">Followers</h5>
+                <h5  class="text-center" style="margin: 0px;">{{followers}}</h5>
+              </div>
+            </div>
+    
             <div class="d-flex justify-content-between align-items-center mb-3">
-              <h3 class="text-right">Profile</h3>
+              
+              
           </div>
              
               <div class="row mt-1">
@@ -35,11 +47,26 @@
                   <h5>Name</h5>
                   <h5>Bio</h5>
                   <h5>Mobile Number</h5>
+                  {% if request.user != profile.user%}
+                    {% if msg == True %}
+                    <form action="{% url 'add-follow' profile.id%}" method="POST">
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-primary form-control">UnFollow</button>
+                    </form>
+                    {% else %}
+                    <form action="{% url 'add-follow' profile.id%}" method="POST">
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-primary form-control">Follow</button>
+                    </form>
+                    {% endif %}
+                  {% endif%}
+                  
                 </div>
                 <div class="col-8 ">
                   <h5>: {{profile.user |capfirst}}</h5>
                   <h5>: {{profile.bio |capfirst}}</h5>
                   <h5>: {{profile.phone_no}}</h5>
+                  
                 </div>
                 
               </div>
@@ -70,6 +97,46 @@
     <div class="col bg-white rounded">
      
         {% for product in products%}
+        {% if product.status == "sold"%}
+        <div class="card mb-3 mt-3 " >
+          <div class="row g-0">
+          
+          <div class="col-md-2" style="width: 230px;">
+              {% if product.image_1%}
+                  <img src="{{product.image_1.url}}" class="img-fluid rounded-start" alt="..." style="height: 200px;width: 100%;">
+         
+              {% else%}
+              <img src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" class="img-fluid rounded-start" alt="...">
+              {% endif%}
+           </div>
+          <div class="col-md-9">
+              <div class="row">
+                  <div class="col-3 ms-2">
+                      <div class="m-2">
+                          
+                          <h3 class="card-title">{{product.name |capfirst}}</h3>
+                          <h4 class="card-title"> status:{{product.status |capfirst}}</h4>
+                          <p >Posted Date:{{product.created | date:" d -m -y"}}</p>
+                      
+                      </div>
+                      
+                      
+                  </div>
+                 
+                  <div class="col-5 ">
+                      <div class="m-5">
+                          
+                              <button type="button" class="btn btn-danger" style="height: 70px;width: 200px;">Sold </button>
+  
+                      </div>                               
+                  </div>
+              </div>                       
+          </div>
+          </div>
+      </div>
+
+
+        {% else%}
         
             <div class="card mb-3 mt-3 " >
                 <div class="row g-0">
@@ -107,7 +174,7 @@
                 </div>
                 </div>
             </div>
-          
+        {% endif %}  
         {% endfor%}
         
     

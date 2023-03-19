@@ -37,7 +37,7 @@
 
 
                 {% if request.user.is_authenticated%}
-                <a href="{% url 'show-notification' %}" style="text-decoration: none;color:black ;"> <strong><i class="bi bi-chat-fill  fa-2xl"></i></strong></a>
+                <a href="{% url 'show-notification' user.id %}" style="text-decoration: none;color:black ;"> <strong><i class="bi bi-chat-fill  fa-2xl"></i></strong></a>
                 {%endif%}
 
 				<a href="{% url 'selling'%}"><button type="button" class=" ms-3 btn btn-light rounded-pill fw-bold" style="border-left-color: yellow;border-top-color:aqua ;border-right-color:aqua ; border-width: 4px;border-bottom-color:blue; width: 100px;">+ Sell</button></a>

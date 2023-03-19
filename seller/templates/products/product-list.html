@@ -1,7 +1,7 @@
 {% extends 'products/base.html'%}
 
 {% block body%}
-{% load static%}
+{% load static %}
 <style>
     .pagination {
       display: inline-block;
@@ -43,7 +43,7 @@
                   All categories
                 </a>  
                 {% for category in categories%}
-            <strong class="mx-2"><a href="{% url 'category-product-list' category.id %}" style="text-decoration: none;color: black;"> {{category}}</a></strong><span>({{category.total_products}})</span>    
+            <strong class="mx-2"><a href="{% url 'category-product-list' category.id %}" style="text-decoration: none;color: black;"> {{category}}</a></strong><span>   
             {% endfor%}  
             </strong>
             <div class="collapse me-5" id="collapseExample">
@@ -110,11 +110,14 @@
                             <!-- like font endf -->
                             
                             <!-- Product image-->
+                            
+            
                             {% if product.image_1%}
-                            <img class="card-img-top " src="{{product.image_1.url}}" alt="..."  style="height:200px ;"/>
+                                <img class="card-img-top " src="{{product.image_1.url}}" alt="..."  style="height:200px ;"/>
                             {% else%}
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            {%endif%}        
+                                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                            {%endif%}    
+                  
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div >

@@ -77,7 +77,6 @@ class HomePage(ListView):
             products=Products.objects.all().exclude(owner=request.user)
 
         profile=UserProfile.objects.all()
-        
         categories=Categories.objects.annotate(total_products=Count('products'))
         searchquery=request.GET.get('q')
         if searchquery:
@@ -95,12 +94,14 @@ class HomePage(ListView):
                 Q(city__icontains=searchqrytwo) 
             ).exclude(owner=request.user)  
             
-        productimages=ProductImages.objects.all()
-        paginator = Paginator(products, 16) # Show 2 contacts per page.
+        
+        paginator = Paginator(products, 16) # Show 16 contacts per page.
 
         page= request.GET.get('page')
         products = paginator.get_page(page)
 
+        productimages=ProductImages.objects.all()
+        count=len(ProductImages.objects.all())
 
         context={"products":products,"profile":profile,"categories":categories,"productimages":productimages}
         return render(request,'products/product-list.html',context)
@@ -125,25 +126,14 @@ class UserProfileView(CreateView):
         return super().form_invalid(form)
 
 
-# def updateprofile(request,pk):
-#     prof=UserProfile.objects.get(id=pk)
-#     form=ProfileForm(instance=prof)
-#     if request.method == "POST":
-#         form=ProfileForm(request.POST,instance=prof)
-#         if form.is_valid():
-#             form.user=request.user
-#             form.save()
-#             messages.success(request,"Profile Has Been Updated")
-#             return redirect('home')
-#     return render(request,'products/profile.html',{"form":form})
 
 
-# this is class based view for update profile
 @method_decorator(desc,name='dispatch')
 class UserProfileUpdateView(UpdateView):
     template_name='products/profile.html'
     model=UserProfile
     fields=['profile_pic','bio','phone_no']
+    
     success_url=reverse_lazy('home')
 
 
@@ -168,11 +158,15 @@ class ShowProfile(DetailView):
         profile=UserProfile.objects.get(id=id)
         # for listing all products owner at the time of clicking product listing page owner
         products=Products.objects.filter(owner=id)
-        print('gdsaasdfghjhgfgh')
-        print(products)
-        print(id)
-        print(profile)
-        return render(request,"products/profilepage.html",{"profile":profile,"products":products})
+        if profile.follower.filter(id=request.user.id):
+            msg=True
+        else:
+            msg=False
+        followers=len(profile.follower.all())
+        following=len(profile.user.follower.all())
+        
+        return render(request,"products/profilepage.html",{"profile":profile,"products":products,"msg":msg,"followers":followers,"following":following})
+
     
 # profile end here
 
@@ -226,7 +220,6 @@ class ProductDetailView(DetailView):
             if product.likes.filter(id=user.id).exists():
                 msg=True
 
-        
 
         return render(request,'products/product-details.html',{"product":product,"productimages":productimages,"msg":msg})
 
@@ -325,10 +318,30 @@ class NotificationView(CreateView):
 
 
 
-class NotificationListView(ListView):
-    template_name='products/show-msg.html'
-    model=Notifications
-    context_object_name='notifications'
+class NotificationListView(View):
+    def get(self,request,*args,**kwars):
+        id=kwars.get('pk')
+        profile=UserProfile.objects.get(id=id)
+        notifications=Notifications.objects.all().filter(product__owner=request.user)
+
+        return render(request,'products/show-msg.html',{"notifications":notifications})
+
+
+
+
+class AddFollower(View):
+    def post(self,request,*args,**Kwargs):
+        id=Kwargs.get("pk")
+        fw=UserProfile.objects.get(id=id)
+        if fw.follower.filter(id=request.user.id):
+            fw.follower.remove(request.user)
+            fw.save()
+            return redirect('show-profile',fw.id)
+        else:
+            fw.follower.add(request.user)
+            fw.save()
+            return redirect('show-profile',fw.id)
+
 
 
 

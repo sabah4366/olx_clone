@@ -4,10 +4,14 @@ from django.utils import timezone
 
 
 class UserProfile(models.Model):
-    user=models.OneToOneField(User,on_delete=models.CASCADE, related_name='profile')
+    user=models.OneToOneField(User,on_delete=models.CASCADE, related_name='profile',)
     profile_pic=models.ImageField(upload_to='profile-pic',null=True,blank=True)
     bio=models.CharField(max_length=200)
     phone_no=models.IntegerField()
+    follower=models.ManyToManyField(User,related_name="follower")
+
+    def __str__(self) :
+        return self.user.username
     
 
 class Categories(models.Model):
@@ -43,7 +47,7 @@ class Products(models.Model):
     state=models.CharField(max_length=200)
     city=models.CharField(max_length=150)
     condition=models.CharField(max_length=200,choices=CONDITION_TYPE)
-    image_1=models.ImageField(upload_to='main_product',blank=True,null=True)
+    image_1=models.ImageField(upload_to='main_product',blank=False,null=False)
     status=models.CharField(max_length=200,choices=OPTIONAL,default='for-sale')
     created=models.DateTimeField(auto_now_add=True)
     updated=models.DateTimeField(auto_now=True)

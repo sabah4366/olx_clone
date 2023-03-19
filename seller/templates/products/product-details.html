@@ -30,10 +30,9 @@
 
         <section class="py-5">
             <div class="container-fluid ">
-				<a style="color: blue;" onclick="history.back()">
-					
-					<i class="bi bi-arrow-left fa-3x"></i>
-				</a>
+				<a onclick="history.back()">
+					<i class="fa-solid fa-arrow-left fa-2x m-2 text-dark"></i>
+				  </a>
 				
 				
 				
@@ -44,8 +43,8 @@
 					
 					<div class="col-6">
 						{% if product.image_1%}
-						<img src="{{product.image_1.url}}" class="col-md-6"  style="height: 550px;width: 750px;"   alt="">`
-                    	{% else%}
+							<img src="{{product.image_1.url}}" class="col-md-6"  style="height: 550px;width: 750px;"   alt="">`
+						{% else%}
                     		<div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." /></div>
                     	{% endif%}
 					</div>
@@ -148,16 +147,18 @@
                 	</div>
 					<!-- carousel satrt here -->
 					<div class="carousel-inner">
+				
 						{% for pro  in productimages %}
-							<div class="item {% if forloop.counter == 1 %}active{% endif %}" id="slide{{ forloop.counter }}">
+							<div >
 								<img src="{{pro.image.url}}" class="col-md-6 m-2"  style="height: 450px;width: 750px;"   alt="">`
 								
 							</div>
-						{% endfor %}
-					</div>
-					
-					
-					<!-- carousel emd here -->
+						{% endfor %} 
+
+					</div> 
+						
+					<!-- carousel emd here --> -->
+					  
                 </div>
             </div>
 			

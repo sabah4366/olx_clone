@@ -10,25 +10,25 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 </head>
-<body class="bg-dark">
+<body class="bg-white">
     
     <div >
         <a onclick="history.back()">
-        <i class="fa-sharp fa-solid fa-arrow-left text-white fa-2x m-3"></i>
+        <i class="fa-sharp fa-solid fa-arrow-left text-dark fa-2x m-3"></i>
         </a>
-        <div class="row">
+        <div class="row ">
         
             <div class="col-4"></div>
-            <div class="col-4 mt-5">
-                <h3 class="text-center fw-bold bg-danger rounded text-white p-3">Inquiry</h3>
+            <div class="col-4 mt-5 border border-2 border-dark rounded">
+                <h3 class="text-center fw-bold  rounded text-dark p-3">Inquiry</h3>
 
-                <form action="" method="POST" class="bg-danger text-white fw-bold rounded p-4"  style="height: 400px;">
+                <form action="" method="POST" class="bg-white text-dark fw-bold rounded p-4"  style="height: 400px;">
                     
                     <div class="col m-4 mb-4">
                         {% csrf_token%}
                         {{form.as_p}}
                 
-                        <input type="submit" name="" id="" value="Submit" class="form-control mt-5  text-dark fw-bold ">
+                        <input  type="submit" name="" id="" value="Submit" class="form-control text-white btn btn-primary mt-5  text-dark fw-bold ">
                         
                     </div>
                 </form >

@@ -18,9 +18,9 @@ urlpatterns=[
     path('add/<int:pk>/image',views.ProductImageCreateView.as_view(),name='create-product-image'),
     path('product-sold/<int:pk>',views.productsold,name='product-sold'),
     path('notifications/<int:pk>/add',views.NotificationView.as_view(),name='notification'),
-    path('show-notifications',views.NotificationListView.as_view(),name='show-notification'),
-
-    path('logout',views.logoutview,name='signout')
+    path('show-notifications/<int:pk>',views.NotificationListView.as_view(),name='show-notification'),
+    path('logout',views.logoutview,name='signout'),
+    path('add-follow/<int:pk>',views.AddFollower.as_view(),name="add-follow")
 
 
 ]

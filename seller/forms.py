@@ -20,8 +20,12 @@ class ProfileForm(forms.ModelForm):
         model=UserProfile
         fields=['profile_pic','bio','phone_no']
 
+        widgets={
+            "profile_pic":forms.FileInput(attrs={"class":"form-control "}),
+            "bio":forms.Textarea(attrs={"class":"form-control"}),
+            "phone_no":forms.NumberInput(attrs={"class":"form-control"}),
     
-
+         }
 
 class SellingForm(forms.ModelForm):
     class Meta:
@@ -46,9 +50,13 @@ class ProductsImagesForm(forms.ModelForm):
         model=ProductImages
         fields=['product','image']
 
+        labels ={
+            'product':''
+        }
+
         widgets={
             'image':forms.FileInput(attrs={'class':"form-control"}),
-            'product':forms.Select(attrs={"class":"form-control"})
+            'product':forms.Select(attrs={"class":"form-control invisible"})
         }
         
 
@@ -57,8 +65,12 @@ class NotificationForm(forms.ModelForm):
         model=Notifications
         fields=['product','description']
 
+        labels={
+            'product':""
+        }
+
 
         widgets={
-            'product':forms.Select(attrs={"class":"form-control"}),
-            'description':forms.TextInput(attrs={"class":"form-control"})
+            'product':forms.Select(attrs={"class":"form-control invisible"}),
+            'description':forms.TextInput(attrs={"class":"form-control "})
         }
