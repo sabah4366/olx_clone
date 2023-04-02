@@ -9,4 +9,4 @@ The project is built using modern web development technologies, including:
 -DBSqlite for database
 
 Clone the repository:
-git clone
+git clone https://github.com/sabah4366/olx_clone
